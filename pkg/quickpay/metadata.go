@@ -12,10 +12,10 @@ type Metadata struct {
 	Country                string   `json:"country"`
 	Is3DSecure             bool     `json:"is_3d_secure"`
 	Secure3dType           string   `json:"3d_secure_type"`
-	IssuedTo               string   `json:"issued_to"`
+	IssuedTo               *string  `json:"issued_to"`
 	Hash                   string   `json:"hash"`
 	Moto                   bool     `json:"moto"`
-	Number                 any      `json:"number"`
+	Number                 *string  `json:"number"`
 	CustomerIP             string   `json:"customer_ip"`
 	CustomerCountry        string   `json:"customer_country"`
 	FraudSuspected         bool     `json:"fraud_suspected"`

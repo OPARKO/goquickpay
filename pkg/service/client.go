@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -38,6 +39,22 @@ func (c QuickpayClient) setupRequest(method httpmethod.HTTPMethod, endpoint stri
 	return request, nil
 }
 
+func setupBaseRequest(body io.Reader, method, endpoint string) (*http.Request, error) {
+	apiKey := ""
+	baseEndpoint := "https://api.quickpay.net"
+	request, err := http.NewRequest(method, baseEndpoint+endpoint, body)
+	if err != nil {
+		log.Printf("setupBaseRequest: there was an error setting up the new request in payment: %v", err)
+		return nil, errors.New("there was an error setting up base request")
+	}
+	encodedAPIKey := base64.StdEncoding.EncodeToString([]byte(":" + apiKey))
+	request.Header.Add("Accept-Version", "v10")
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	request.Header.Add("Authorization", "Basic "+encodedAPIKey)
+
+	return request, nil
+}
+
 func (c QuickpayClient) CallEndpoint(method httpmethod.HTTPMethod, endpoint string, data any) (*http.Response, error) {
 	request, err := c.PrepareEndPoint(method, endpoint, data)
 	if err != nil {
@@ -47,17 +64,18 @@ func (c QuickpayClient) CallEndpoint(method httpmethod.HTTPMethod, endpoint stri
 	return c.CallEndPointWith(request)
 }
 
-func (q QuickpayClient) PrepareEndPoint(method httpmethod.HTTPMethod, endpoint string, data any) (*http.Request, error) {
+func (c QuickpayClient) PrepareEndPoint(method httpmethod.HTTPMethod, endpoint string, data any) (*http.Request, error) {
 	if data == nil {
-		return q.setupRequest(method, endpoint, strings.NewReader(""))
+		return c.setupRequest(method, endpoint, strings.NewReader("{}"))
+		// return c.setupRequest(method, endpoint, nil)
 	}
 
-	body, err := q.EncodeBody(data)
+	body, err := c.EncodeBody(data)
 	if err != nil {
 		return nil, err
 	}
 
-	return q.setupRequest(method, endpoint, body)
+	return c.setupRequest(method, endpoint, body)
 }
 
 func (c QuickpayClient) CallEndPointWith(request *http.Request) (*http.Response, error) {

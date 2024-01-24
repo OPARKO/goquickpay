@@ -1,5 +1,7 @@
 package quickpay
 
+import "time"
+
 type Subscription struct {
 	ID              int64       `json:"id"`
 	ULID            string      `json:"ulid"`
@@ -22,12 +24,12 @@ type Subscription struct {
 	TestMode        bool        `json:"test_mode"`
 	Acquirer        string      `json:"acquirer"`
 	Facilitator     string      `json:"facilitator"`
-	CreatedAt       string      `json:"created_at"`
-	UpdatedAt       string      `json:"updated_at"`
-	RetentedAt      string      `json:"retented_at"`
+	CreatedAt       time.Time   `json:"created_at"`
+	UpdatedAt       time.Time   `json:"updated_at"`
+	RetentedAt      time.Time   `json:"retented_at"`
 	Description     string      `json:"description"`
 	GroupIDs        []int       `json:"group_ids"`
 	ThreedsV2       ThreedsV2   `json:"threeds_v2"`
-	Unscheduled     *bool       `json:"unscheduled"`
-	DeadlineAt      string      `json:"deadline_at"`
+	Unscheduled     bool        `json:"unscheduled"`
+	DeadlineAt      time.Time   `json:"deadline_at"`
 }
