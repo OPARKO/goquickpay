@@ -1,4 +1,4 @@
-package call
+package httpmethod
 
 type HTTPMethod string
 

@@ -1,3 +1,3 @@
-package subscription
+package subscriptions
 
 type CreateOrUpdateLinkForm struct{}

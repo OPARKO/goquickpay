@@ -3,19 +3,23 @@ package payments
 import (
 	"encoding/json"
 	"fmt"
-	"goquickpay/pkg/call"
+	"goquickpay/pkg/httpmethod"
 	"goquickpay/pkg/quickpay"
 	"goquickpay/pkg/service"
-	"goquickpay/pkg/service/payments/constants"
+	"goquickpay/pkg/service/constants"
 	"net/http"
 )
 
 type Service struct {
-	Client service.QuickPayClient
+	Client service.QuickpayClient
+}
+
+func NewService(client service.QuickpayClient) Service {
+	return Service{client}
 }
 
 func (s Service) CreatePayment(form PaymentsForm) (*quickpay.Payment, error) {
-	response, err := s.Client.CallEndpoint(call.Post, constants.PAYMENTS, form)
+	response, err := s.Client.CallEndpoint(httpmethod.Post, constants.PAYMENTS, form)
 	if err != nil {
 		return nil, err
 	}

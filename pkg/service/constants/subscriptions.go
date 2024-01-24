@@ -1,6 +1,5 @@
 package constants
 
-// TODO: move endpoints
 const (
 	SUBSCRIPTIONS              = "/subscriptions"
 	SUBSCRIPTIONS_LINK         = "/subscriptions/%d/link"

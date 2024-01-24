@@ -1,24 +1,28 @@
-package subscription
+package subscriptions
 
 import (
 	"encoding/json"
 	"fmt"
-	"goquickpay/pkg/call"
+	"goquickpay/pkg/httpmethod"
 	"goquickpay/pkg/quickpay"
 	"goquickpay/pkg/service"
-	"goquickpay/pkg/service/subscription/constants"
+	"goquickpay/pkg/service/constants"
 	"io"
 	"net/http"
 )
 
 type Service struct {
-	Client service.QuickPayClient
+	Client service.QuickpayClient
+}
+
+func NewService(client service.QuickpayClient) Service {
+	return Service{client}
 }
 
 // GET /subscriptions GetSubscriptions
 
 func (s Service) CreateSubscription(form CreateForm) (*quickpay.Subscription, error) {
-	response, err := s.Client.CallEndpoint(call.Post, constants.SUBSCRIPTIONS, form)
+	response, err := s.Client.CallEndpoint(httpmethod.Post, constants.SUBSCRIPTIONS, form)
 	if err != nil {
 		return nil, err
 	}
@@ -34,8 +38,8 @@ func (s Service) CreateSubscription(form CreateForm) (*quickpay.Subscription, er
 	return DecodeSubscriptioFrom(response.Body)
 }
 
-func (s Service) CreateOrUpdatePaymentLink(id int, form CreateOrUpdateLinkForm) (*quickpay.PaymentLinkUrl, error) {
-	response, err := s.Client.CallEndpoint(call.Put, fmt.Sprintf(constants.SUBSCRIPTIONS_LINK, id), form)
+func (s Service) CreateOrUpdatePaymentLink(id int64, form CreateOrUpdateLinkForm) (*quickpay.PaymentLinkUrl, error) {
+	response, err := s.Client.CallEndpoint(httpmethod.Put, fmt.Sprintf(constants.SUBSCRIPTIONS_LINK, id), form)
 	if err != nil {
 		return nil, err
 	}
@@ -64,8 +68,8 @@ func (s Service) CreateOrUpdatePaymentLink(id int, form CreateOrUpdateLinkForm) 
 // POST /subscriptions/{id}/session CreateSubscriptionSession
 // POST /subscriptions/{id}/authorize AuthorizeAsubscription
 
-func (s Service) CancelSubscription(id int, callback *string) (*quickpay.Subscription, error) {
-	request, err := s.Client.PrepareEndPoint(call.Post, fmt.Sprintf(constants.SUBSCRIPTIONS_CANCEL, id), nil)
+func (s Service) CancelSubscription(id int64, callback *string) (*quickpay.Subscription, error) {
+	request, err := s.Client.PrepareEndPoint(httpmethod.Post, fmt.Sprintf(constants.SUBSCRIPTIONS_CANCEL, id), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -90,8 +94,8 @@ func (s Service) CancelSubscription(id int, callback *string) (*quickpay.Subscri
 	return DecodeSubscriptioFrom(response.Body)
 }
 
-func (s Service) CreateSubscriptionRecurringPayment(id int, form RecurringForm, callback *string) (*quickpay.Payment, error) {
-	request, err := s.Client.PrepareEndPoint(call.Get, fmt.Sprintf(constants.SUBSCRIPTIONS_RECURRING, id), form)
+func (s Service) CreateSubscriptionRecurringPayment(id int64, form RecurringForm, callback *string) (*quickpay.Payment, error) {
+	request, err := s.Client.PrepareEndPoint(httpmethod.Get, fmt.Sprintf(constants.SUBSCRIPTIONS_RECURRING, id), form)
 	if err != nil {
 		return nil, err
 	}

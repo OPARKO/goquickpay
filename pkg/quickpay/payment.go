@@ -1,14 +1,14 @@
 package quickpay
 
 type Payment struct {
-	ID              int         `json:"id"`
+	ID              int64       `json:"id"`
 	ULID            string      `json:"ulid"`
-	MerchantID      int         `json:"merchant_id"`
+	MerchantID      int64       `json:"merchant_id"`
 	OrderID         string      `json:"order_id"`
 	Accepted        bool        `json:"accepted"`
 	Type            string      `json:"type"`
 	TextOnStatement string      `json:"text_on_statement"`
-	BrandingID      int         `json:"branding_id"`
+	BrandingID      int64       `json:"branding_id"`
 	Variables       any         `json:"variables"`
 	Currency        string      `json:"currency"`
 	State           string      `json:"state"`
@@ -28,6 +28,6 @@ type Payment struct {
 	Description     string      `json:"description"`
 	Balance         int         `json:"balance"`
 	Fee             int         `json:"fee"`
-	SubscriptionID  int         `json:"subscription_id"`
+	SubscriptionID  int64       `json:"subscription_id"`
 	DeadlineAt      string      `json:"deadline_at"`
 }

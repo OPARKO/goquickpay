@@ -1,4 +1,4 @@
-package subscription
+package subscriptions
 
 import (
 	"goquickpay/pkg/quickpay"
@@ -6,7 +6,7 @@ import (
 
 type CreateForm struct {
 	Variables       map[string]string   `json:"variables,omitempty"`
-	BrandingID      *int                `json:"branding_id,omitempty"`
+	BrandingID      int64               `json:"branding_id,omitempty"`
 	InvoiceAddress  quickpay.Address    `json:"invoice_address,omitempty"`
 	ShippingAddress quickpay.Address    `json:"shipping_address,omitempty"`
 	ShopSystem      quickpay.ShopSystem `json:"shopsystem,omitempty"`
