@@ -4,11 +4,12 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
-	"goquickpay/pkg/httpmethod"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/parkeringskompagniet/goquickpay/pkg/httpmethod"
 
 	"github.com/gorilla/schema"
 )

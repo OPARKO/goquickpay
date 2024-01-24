@@ -3,10 +3,11 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"goquickpay/pkg/httpmethod"
-	"goquickpay/pkg/quickpay"
-	"goquickpay/pkg/service/constants"
 	"net/http"
+
+	"github.com/parkeringskompagniet/goquickpay/pkg/httpmethod"
+	"github.com/parkeringskompagniet/goquickpay/pkg/quickpay"
+	"github.com/parkeringskompagniet/goquickpay/pkg/service/constants"
 )
 
 // NOTE: add query params?

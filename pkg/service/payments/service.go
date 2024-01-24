@@ -3,12 +3,13 @@ package payments
 import (
 	"encoding/json"
 	"fmt"
-	"goquickpay/pkg/httpmethod"
-	"goquickpay/pkg/quickpay"
-	"goquickpay/pkg/service"
-	"goquickpay/pkg/service/constants"
 	"io"
 	"net/http"
+
+	"github.com/parkeringskompagniet/goquickpay/pkg/httpmethod"
+	"github.com/parkeringskompagniet/goquickpay/pkg/quickpay"
+	"github.com/parkeringskompagniet/goquickpay/pkg/service"
+	"github.com/parkeringskompagniet/goquickpay/pkg/service/constants"
 )
 
 type Service struct {

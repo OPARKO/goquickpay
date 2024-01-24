@@ -1,7 +1,7 @@
 package subscriptions
 
 import (
-	"goquickpay/pkg/quickpay"
+	"github.com/parkeringskompagniet/goquickpay/pkg/quickpay"
 )
 
 type CreateForm struct {

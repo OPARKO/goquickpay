@@ -1,4 +1,4 @@
-module goquickpay
+module github.com/parkeringskompagniet/goquickpay
 
 go 1.21
 

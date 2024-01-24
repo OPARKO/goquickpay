@@ -1,6 +1,6 @@
 package payments
 
-import "goquickpay/pkg/quickpay"
+import "github.com/parkeringskompagniet/goquickpay/pkg/quickpay"
 
 type PaymentsForm struct{}
 

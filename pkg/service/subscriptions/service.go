@@ -3,13 +3,14 @@ package subscriptions
 import (
 	"encoding/json"
 	"fmt"
-	"goquickpay/pkg/httpmethod"
-	"goquickpay/pkg/quickpay"
-	"goquickpay/pkg/service"
-	"goquickpay/pkg/service/constants"
-	"goquickpay/pkg/service/payments"
 	"io"
 	"net/http"
+
+	"github.com/parkeringskompagniet/goquickpay/pkg/httpmethod"
+	"github.com/parkeringskompagniet/goquickpay/pkg/quickpay"
+	"github.com/parkeringskompagniet/goquickpay/pkg/service"
+	"github.com/parkeringskompagniet/goquickpay/pkg/service/constants"
+	"github.com/parkeringskompagniet/goquickpay/pkg/service/payments"
 )
 
 type Service struct {
