@@ -7,6 +7,7 @@ import (
 	"goquickpay/pkg/quickpay"
 	"goquickpay/pkg/service"
 	"goquickpay/pkg/service/constants"
+	"goquickpay/pkg/service/payments"
 	"io"
 	"net/http"
 )
@@ -32,7 +33,7 @@ func (s Service) CreateSubscription(form CreateForm) (*quickpay.Subscription, er
 	if statusCode == http.StatusBadRequest || statusCode == http.StatusForbidden {
 		return nil, fmt.Errorf(response.Status)
 	} else if statusCode != http.StatusAccepted {
-		return nil, fmt.Errorf("quickpay unknown response code: %d", statusCode)
+		return nil, fmt.Errorf(constants.ErrNotExpectedResponseCode, statusCode)
 	}
 
 	return DecodeSubscriptioFrom(response.Body)
@@ -49,7 +50,7 @@ func (s Service) CreateOrUpdatePaymentLink(id int64, form CreateOrUpdateLinkForm
 	if statusCode == http.StatusBadRequest {
 		return nil, fmt.Errorf(response.Status)
 	} else if statusCode != http.StatusOK {
-		return nil, fmt.Errorf("quickpay unknown response code: %d", statusCode)
+		return nil, fmt.Errorf(constants.ErrNotExpectedResponseCode, statusCode)
 	}
 
 	var linkUrl quickpay.PaymentLinkUrl
@@ -88,7 +89,7 @@ func (s Service) CancelSubscription(id int64, callback *string) (*quickpay.Subsc
 	if statusCode == http.StatusForbidden || statusCode == http.StatusNotFound {
 		return nil, fmt.Errorf(response.Status)
 	} else if statusCode != http.StatusAccepted {
-		return nil, fmt.Errorf("quickpay unknown response code: %d", statusCode)
+		return nil, fmt.Errorf(constants.ErrNotExpectedResponseCode, statusCode)
 	}
 
 	return DecodeSubscriptioFrom(response.Body)
@@ -114,17 +115,10 @@ func (s Service) CreateSubscriptionRecurringPayment(id int64, form RecurringForm
 	if statusCode == http.StatusBadRequest || statusCode == http.StatusForbidden || statusCode == http.StatusNotFound {
 		return nil, fmt.Errorf(response.Status)
 	} else if statusCode != http.StatusAccepted {
-		return nil, fmt.Errorf("quickpay unknown response code: %d", statusCode)
+		return nil, fmt.Errorf(constants.ErrNotExpectedResponseCode, statusCode)
 	}
 
-	var payment quickpay.Payment
-
-	err = json.NewDecoder(response.Body).Decode(&payment)
-	if err != nil {
-		return nil, err
-	}
-
-	return &payment, nil
+	return payments.DecodePaymentFrom(response.Body)
 }
 
 // POST /subscriptions/{id}/fraud-reportCreate FraudConfirmationReport

@@ -7,6 +7,7 @@ import (
 	"goquickpay/pkg/quickpay"
 	"goquickpay/pkg/service"
 	"goquickpay/pkg/service/constants"
+	"io"
 	"net/http"
 )
 
@@ -29,12 +30,16 @@ func (s Service) CreatePayment(form PaymentsForm) (*quickpay.Payment, error) {
 	if statusCode == http.StatusBadRequest || statusCode == http.StatusForbidden {
 		return nil, fmt.Errorf(response.Status)
 	} else if statusCode != http.StatusCreated {
-		return nil, fmt.Errorf("quickpay unknown response code: %d", statusCode)
+		return nil, fmt.Errorf(constants.ErrNotExpectedResponseCode, statusCode)
 	}
 
+	return DecodePaymentFrom(response.Body)
+}
+
+func DecodePaymentFrom(body io.ReadCloser) (*quickpay.Payment, error) {
 	var payment quickpay.Payment
 
-	err = json.NewDecoder(response.Body).Decode(&payment)
+	err := json.NewDecoder(body).Decode(&payment)
 	if err != nil {
 		return nil, err
 	}

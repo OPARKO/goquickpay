@@ -1,5 +1,5 @@
 package constants
 
 const (
-	NotExpectedResponseCode = "not expected response code: %d"
+	ErrNotExpectedResponseCode = "not expected response code: %d"
 )
