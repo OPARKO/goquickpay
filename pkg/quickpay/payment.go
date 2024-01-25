@@ -30,6 +30,6 @@ type Payment struct {
 	Balance         int          `json:"balance"`
 	Fee             *int         `json:"fee"`
 	SubscriptionID  int64        `json:"subscription_id"`
-	DeadlineAt      *string      `json:"deadline_at"`
+	DeadlineAt      *time.Time   `json:"deadline_at"`
 	ResellerID      *int64       `json:"reseller_id"`
 }

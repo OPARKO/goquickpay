@@ -15,7 +15,7 @@ type Operation struct {
 	CallbackURL          string     `json:"callback_url"`
 	CallbackSuccess      *bool      `json:"callback_success"`
 	CallbackResponseCode *string    `json:"callback_response_code"`
-	CallbackDuration     *string    `json:"callback_duration"`
+	CallbackDuration     *int       `json:"callback_duration"`
 	Acquirer             string     `json:"acquirer"`
 	SecureStatus3D       *string    `json:"3d_secure_status"`
 	CallbackAt           *time.Time `json:"callback_at"`

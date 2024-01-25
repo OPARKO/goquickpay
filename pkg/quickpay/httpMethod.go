@@ -1,4 +1,4 @@
-package httpmethod
+package quickpay
 
 type HTTPMethod string
 

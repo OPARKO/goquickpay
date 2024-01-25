@@ -1,5 +1,14 @@
 package subscriptions
 
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+
+	"github.com/parkeringskompagniet/goquickpay/pkg/quickpay"
+	"github.com/parkeringskompagniet/goquickpay/pkg/service/constants"
+)
+
 type CreateOrUpdateLinkForm struct {
 	Amount                    int            `json:"amount"`
 	AgreementID               int            `json:"agreement_id,omitempty"`
@@ -21,4 +30,28 @@ type CreateOrUpdateLinkForm struct {
 	CustomerEmail             string         `json:"customer_email,omitempty"`
 	InvoiceAddressSelection   bool           `json:"invoice_address_selection,omitempty"`
 	ShippingAddressSelection  bool           `json:"shipping_address_selection,omitempty"`
+}
+
+func (s SubscriptionService) CreateOrUpdatePaymentLink(transactionID int64, form CreateOrUpdateLinkForm) (*quickpay.PaymentLinkUrl, error) {
+	response, err := s.Client.CallWithPath(quickpay.Put, fmt.Sprintf(constants.SUBSCRIPTIONS_LINK, transactionID), form)
+	if err != nil {
+		return nil, err
+	}
+
+	statusCode := response.StatusCode
+
+	if statusCode == http.StatusBadRequest {
+		return nil, fmt.Errorf(response.Status)
+	} else if statusCode != http.StatusOK {
+		return nil, fmt.Errorf(constants.ErrNotExpectedResponseCode, statusCode)
+	}
+
+	var linkUrl quickpay.PaymentLinkUrl
+
+	err = json.NewDecoder(response.Body).Decode(&linkUrl)
+	if err != nil {
+		return nil, err
+	}
+
+	return &linkUrl, nil
 }

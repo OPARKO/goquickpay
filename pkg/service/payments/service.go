@@ -2,40 +2,35 @@ package payments
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
-	"net/http"
 
-	"github.com/parkeringskompagniet/goquickpay/pkg/httpmethod"
 	"github.com/parkeringskompagniet/goquickpay/pkg/quickpay"
-	"github.com/parkeringskompagniet/goquickpay/pkg/service"
-	"github.com/parkeringskompagniet/goquickpay/pkg/service/constants"
 )
 
-type Service struct {
-	Client service.QuickpayClient
+type PaymentService struct {
+	Client quickpay.QuickpayClient
 }
 
-func NewService(client service.QuickpayClient) Service {
-	return Service{client}
+func NewPaymentService(client quickpay.QuickpayClient) PaymentService {
+	return PaymentService{client}
 }
 
-func (s Service) CreatePayment(form PaymentsForm) (*quickpay.Payment, error) {
-	response, err := s.Client.CallEndpoint(httpmethod.Post, constants.PAYMENTS, form)
-	if err != nil {
-		return nil, err
-	}
-
-	statusCode := response.StatusCode
-
-	if statusCode == http.StatusBadRequest || statusCode == http.StatusForbidden {
-		return nil, fmt.Errorf(response.Status)
-	} else if statusCode != http.StatusCreated {
-		return nil, fmt.Errorf(constants.ErrNotExpectedResponseCode, statusCode)
-	}
-
-	return DecodePaymentFrom(response.Body)
-}
+// TODO:
+//
+// GET /payments GetAllPayments
+// PUT /payments/{id}/linkCreate or update a payment link
+// DELETE /payments/{id}/linkDelete payment link
+// GET /payments/{id}Get payment
+// PATCH /payments/{id}Update payment
+// POST /payments/{id}/sessionCreate payment session
+// POST /payments/{id}/authorizeAuthorize payment
+// POST /payments/{id}/captureCapture payment
+// POST /payments/{id}/refundRefund payment
+// POST /payments/{id}/cancelCancel payment
+// POST /payments/{id}/renewRenew authorization
+// POST /payments/{id}/fraud-reportCreate fraud confirmation report
+// GET /payments/{id}/operations/{operation_id}Get Operation
+// PATCH /payments/{id}/operations/{operation_id} UpdateOperation
 
 func DecodePaymentFrom(body io.ReadCloser) (*quickpay.Payment, error) {
 	var payment quickpay.Payment
