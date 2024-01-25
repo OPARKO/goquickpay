@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/parkeringskompagniet/goquickpay/pkg/constants"
 	"github.com/parkeringskompagniet/goquickpay/pkg/quickpay"
-	"github.com/parkeringskompagniet/goquickpay/pkg/service/constants"
 )
 
 type CreateForm struct {

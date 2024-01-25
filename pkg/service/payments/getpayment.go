@@ -6,8 +6,8 @@ import (
 	"net/url"
 	"strconv"
 
+	"github.com/parkeringskompagniet/goquickpay/pkg/constants"
 	"github.com/parkeringskompagniet/goquickpay/pkg/quickpay"
-	"github.com/parkeringskompagniet/goquickpay/pkg/service/constants"
 )
 
 func (s PaymentService) GetPayment(paymentID int64, operationSize uint) (*quickpay.Payment, error) {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/parkeringskompagniet/goquickpay/pkg/constants"
 	"github.com/parkeringskompagniet/goquickpay/pkg/quickpay"
-	"github.com/parkeringskompagniet/goquickpay/pkg/service/constants"
 )
 
 func (s SubscriptionService) CancelSubscription(subscriptionID int64, callback *string) (*quickpay.Subscription, error) {

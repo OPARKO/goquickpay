@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/parkeringskompagniet/goquickpay/pkg/service/constants"
+	"github.com/parkeringskompagniet/goquickpay/pkg/constants"
 )
 
 func (c QuickpayClient) Ping(method HTTPMethod, params url.Values) (*Pong, error) {
