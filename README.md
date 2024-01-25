@@ -1,3 +1,3 @@
 # goquickpay
 
-This is not final, and will only be worked as needed.
+This is not final, and will only be worked on as needed.
