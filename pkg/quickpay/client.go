@@ -51,7 +51,7 @@ func (c QuickpayClient) CreateBaseUrl(path string, params url.Values) (*url.URL,
 	return u, nil
 }
 
-func (c QuickpayClient) PrepareWithURL(method HTTPMethod, u *url.URL, data any) (*http.Request, error) {
+func (c QuickpayClient) PrepareWithURL(method HTTPMethod, u *url.URL, data interface{}) (*http.Request, error) {
 	if data == nil {
 		return c.setupRequest(method, u, strings.NewReader(""))
 	}
@@ -64,7 +64,7 @@ func (c QuickpayClient) PrepareWithURL(method HTTPMethod, u *url.URL, data any) 
 	return c.setupRequest(method, u, body)
 }
 
-func (c QuickpayClient) PrepareWithPath(method HTTPMethod, path string, data any) (*http.Request, error) {
+func (c QuickpayClient) PrepareWithPath(method HTTPMethod, path string, data interface{}) (*http.Request, error) {
 	u, err := c.CreateBaseUrl(path, nil)
 	if err != nil {
 		return nil, err
@@ -73,7 +73,7 @@ func (c QuickpayClient) PrepareWithPath(method HTTPMethod, path string, data any
 	return c.PrepareWithURL(method, u, data)
 }
 
-func (c QuickpayClient) CallWithURL(method HTTPMethod, u *url.URL, body any) (*http.Response, error) {
+func (c QuickpayClient) CallWithURL(method HTTPMethod, u *url.URL, body interface{}) (*http.Response, error) {
 	request, err := c.PrepareWithURL(method, u, body)
 	if err != nil {
 		return nil, err
@@ -82,7 +82,7 @@ func (c QuickpayClient) CallWithURL(method HTTPMethod, u *url.URL, body any) (*h
 	return c.CallWithRequest(request)
 }
 
-func (c QuickpayClient) CallWithPath(method HTTPMethod, path string, body any) (*http.Response, error) {
+func (c QuickpayClient) CallWithPath(method HTTPMethod, path string, body interface{}) (*http.Response, error) {
 	u, err := c.CreateBaseUrl(path, nil)
 	if err != nil {
 		return nil, err
@@ -99,7 +99,7 @@ func (c QuickpayClient) CallWithRequest(request *http.Request) (*http.Response, 
 	return client.Do(request)
 }
 
-func (c QuickpayClient) ConverToURLValues(data any) (url.Values, error) {
+func (c QuickpayClient) ConverToURLValues(data interface{}) (url.Values, error) {
 	encoder := schema.NewEncoder()
 	values := url.Values{}
 
@@ -111,7 +111,7 @@ func (c QuickpayClient) ConverToURLValues(data any) (url.Values, error) {
 	return values, nil
 }
 
-func (c QuickpayClient) EncodeBody(data any) (io.Reader, error) {
+func (c QuickpayClient) EncodeBody(data interface{}) (io.Reader, error) {
 	bytes, err := json.Marshal(data)
 	if err != nil {
 		return nil, err

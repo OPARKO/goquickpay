@@ -11,7 +11,7 @@ type Subscription struct {
 	Type            string      `json:"type"`
 	TextOnStatement string      `json:"text_on_statement"`
 	BrandingID      int64       `json:"branding_id"`
-	Variables       any         `json:"variables"`
+	Variables       interface{} `json:"variables"`
 	Currency        string      `json:"currency"`
 	State           string      `json:"state"`
 	Metadata        Metadata    `json:"metadata"`
