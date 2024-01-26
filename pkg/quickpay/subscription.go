@@ -28,7 +28,7 @@ type Subscription struct {
 	UpdatedAt       time.Time   `json:"updated_at"`
 	RetentedAt      time.Time   `json:"retented_at"`
 	Description     string      `json:"description"`
-	GroupIDs        []int       `json:"group_ids"`
+	GroupIDs        []int64     `json:"group_ids"`
 	ThreedsV2       ThreedsV2   `json:"threeds_v2"`
 	Unscheduled     bool        `json:"unscheduled"`
 	DeadlineAt      time.Time   `json:"deadline_at"`

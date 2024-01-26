@@ -27,8 +27,8 @@ type Payment struct {
 	CreatedAt       *time.Time   `json:"created_at"`
 	UpdatedAt       *time.Time   `json:"updated_at"`
 	RetentedAt      *time.Time   `json:"retented_at"`
-	Balance         int          `json:"balance"`
-	Fee             *int         `json:"fee"`
+	Balance         int64        `json:"balance"`
+	Fee             *int64       `json:"fee"`
 	SubscriptionID  int64        `json:"subscription_id"`
 	DeadlineAt      *time.Time   `json:"deadline_at"`
 	ResellerID      *int64       `json:"reseller_id"`

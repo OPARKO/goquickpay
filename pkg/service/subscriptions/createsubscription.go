@@ -19,7 +19,7 @@ type CreateForm struct {
 	Description     string              `json:"description" binding:"required"`
 	TextOnStatement string              `json:"text_on_statement,omitempty"`
 	ThreeDSV2       quickpay.ThreedsV2  `json:"threeds_v2,omitempty"`
-	GroupIDs        []int               `json:"group_ids,omitempty"`
+	GroupIDs        []int64             `json:"group_ids,omitempty"`
 	Unscheduled     bool                `json:"unscheduled,omitempty"`
 }
 

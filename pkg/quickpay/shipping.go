@@ -5,6 +5,6 @@ type Shipping struct {
 	Company        string  `json:"company,omitempty"`
 	TrackingNumber string  `json:"tracking_number,omitempty"`
 	TrackingURL    string  `json:"tracking_url,omitempty"`
-	Amount         int     `json:"amount,omitempty"`
+	Amount         int64   `json:"amount,omitempty"`
 	VatRate        float64 `json:"vat_rate,omitempty"`
 }

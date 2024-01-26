@@ -20,7 +20,7 @@ type PaymentRequestForm struct {
 	OrderID         string                 `json:"order_id"`
 	TextOnStatement string                 `json:"text_on_statement,omitempty"`
 	Basket          []quickpay.Basket      `json:"basket"`
-	BrandingID      int                    `json:"branding_id,omitempty"`
+	BrandingID      int64                  `json:"branding_id,omitempty"`
 }
 
 func (s PaymentService) CreatePayment(form PaymentsForm) (*quickpay.Payment, error) {

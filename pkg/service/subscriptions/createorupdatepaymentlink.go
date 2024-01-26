@@ -10,19 +10,19 @@ import (
 )
 
 type CreateOrUpdateLinkForm struct {
-	Amount                    int                    `json:"amount"`
-	AgreementID               int                    `json:"agreement_id,omitempty"`
+	Amount                    int64                  `json:"amount"`
+	AgreementID               int64                  `json:"agreement_id,omitempty"`
 	Language                  string                 `json:"language,omitempty"`
 	ContinueURL               string                 `json:"continue_url,omitempty"`
 	CancelURL                 string                 `json:"cancel_url,omitempty"`
 	CallbackURL               string                 `json:"callback_url,omitempty"`
 	PaymentMethods            string                 `json:"payment_methods,omitempty"`
 	AutoFee                   bool                   `json:"auto_fee,omitempty"`
-	BrandingID                int                    `json:"branding_id,omitempty"`
+	BrandingID                int64                  `json:"branding_id,omitempty"`
 	GoogleAnalyticsTrackingID string                 `json:"google_analytics_tracking_id,omitempty"`
 	GoogleAnalyticsClientID   string                 `json:"google_analytics_client_id,omitempty"`
 	Acquirer                  string                 `json:"acquirer,omitempty"`
-	Deadline                  int                    `json:"deadline,omitempty"`
+	Deadline                  int64                  `json:"deadline,omitempty"`
 	Framed                    bool                   `json:"framed,omitempty"`
 	BrandingConfig            map[string]interface{} `json:"branding_config,omitempty"`
 	FeeVAT                    float64                `json:"fee_vat,omitempty"`
