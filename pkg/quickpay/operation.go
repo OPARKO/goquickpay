@@ -5,7 +5,7 @@ import "time"
 type Operation struct {
 	ID                   int         `json:"id"`
 	Type                 string      `json:"type"`
-	Amount               int         `json:"amount"`
+	Amount               int64       `json:"amount"`
 	Pending              bool        `json:"pending"`
 	QPStatusCode         *string     `json:"qp_status_code"`
 	QPStatusMsg          *string     `json:"qp_status_msg"`
