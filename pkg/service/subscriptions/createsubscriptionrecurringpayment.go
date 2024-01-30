@@ -21,7 +21,7 @@ type RecurringForm struct {
 }
 
 func (s SubscriptionService) CreateSubscriptionRecurringPayment(subscriptionID int64, form RecurringForm, callback *string) (*quickpay.Payment, error) {
-	request, err := s.Client.PrepareWithPath(quickpay.Get, fmt.Sprintf(constants.SUBSCRIPTIONS_RECURRING, subscriptionID), form)
+	request, err := s.Client.PrepareWithPath(quickpay.Post, fmt.Sprintf(constants.SUBSCRIPTIONS_RECURRING, subscriptionID), form)
 	if err != nil {
 		return nil, err
 	}
