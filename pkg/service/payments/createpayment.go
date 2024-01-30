@@ -11,16 +11,16 @@ import (
 type PaymentsForm struct{}
 
 type PaymentRequestForm struct {
-	InvoiceAddress  quickpay.Address       `json:"invoice_address,omitempty"`
-	ShippingAddress quickpay.Address       `json:"shipping_address,omitempty"`
-	Shipping        quickpay.Shipping      `json:"shipping,omitempty"`
-	Shopsystem      quickpay.ShopSystem    `json:"shopsystem,omitempty"`
-	Variables       map[string]interface{} `json:"variables,omitempty"`
-	Currency        string                 `json:"currency"`
-	OrderID         string                 `json:"order_id"`
-	TextOnStatement string                 `json:"text_on_statement,omitempty"`
-	Basket          []quickpay.Basket      `json:"basket"`
-	BrandingID      int64                  `json:"branding_id,omitempty"`
+	InvoiceAddress  quickpay.Address       `schema:"invoice_address,omitempty"`
+	ShippingAddress quickpay.Address       `schema:"shipping_address,omitempty"`
+	Shipping        quickpay.Shipping      `schema:"shipping,omitempty"`
+	Shopsystem      quickpay.ShopSystem    `schema:"shopsystem,omitempty"`
+	Variables       map[string]interface{} `schema:"variables,omitempty"`
+	Currency        string                 `schema:"currency"`
+	OrderID         string                 `schema:"order_id"`
+	TextOnStatement string                 `schema:"text_on_statement,omitempty"`
+	Basket          []quickpay.Basket      `schema:"basket"`
+	BrandingID      int64                  `schema:"branding_id,omitempty"`
 }
 
 func (s PaymentService) CreatePayment(form PaymentsForm) (*quickpay.Payment, error) {

@@ -10,14 +10,14 @@ import (
 )
 
 type RecurringForm struct {
-	TextOnStatement string  `json:"text_on_statement,omitempty"`
-	Description     string  `json:"description,omitempty"`
-	OrderID         string  `json:"order_id" binding:"required"`
-	FeeVAT          float64 `json:"fee_vat,omitempty"`
-	Amount          int64   `json:"amount" binding:"required"`
-	AutoCapture     bool    `json:"auto_capture,omitempty"`
-	Autofee         bool    `json:"autofee,omitempty"`
-	ZeroAuth        bool    `json:"zero_auth,omitempty"`
+	TextOnStatement string  `schema:"text_on_statement,omitempty"`
+	Description     string  `schema:"description,omitempty"`
+	OrderID         string  `schema:"order_id" binding:"required"`
+	FeeVAT          float64 `schema:"fee_vat,omitempty"`
+	Amount          int64   `schema:"amount" binding:"required"`
+	AutoCapture     bool    `schema:"auto_capture,omitempty"`
+	Autofee         bool    `schema:"autofee,omitempty"`
+	ZeroAuth        bool    `schema:"zero_auth,omitempty"`
 }
 
 func (s SubscriptionService) CreateSubscriptionRecurringPayment(subscriptionID int64, form RecurringForm, callback *string) (*quickpay.Payment, error) {

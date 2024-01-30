@@ -14,8 +14,6 @@ func (s SubscriptionService) GetSubscription(subscriptionID int64) (*quickpay.Su
 		return nil, err
 	}
 
-	fmt.Println(res.Status)
-
 	statusCode := res.StatusCode
 	if statusCode == http.StatusForbidden || statusCode == http.StatusNotFound {
 		return nil, fmt.Errorf(res.Status)

@@ -2,7 +2,6 @@ package quickpay
 
 import (
 	"encoding/base64"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -65,7 +64,7 @@ func (c QuickpayClient) PrepareWithURL(method HTTPMethod, u *url.URL, data inter
 }
 
 func (c QuickpayClient) PrepareWithPath(method HTTPMethod, path string, data interface{}) (*http.Request, error) {
-	u, err := c.CreateBaseUrl(path, nil)
+	u, err := c.CreateBaseUrl(path, url.Values{})
 	if err != nil {
 		return nil, err
 	}
@@ -93,12 +92,10 @@ func (c QuickpayClient) CallWithPath(method HTTPMethod, path string, body interf
 
 func (c QuickpayClient) CallWithRequest(request *http.Request) (*http.Response, error) {
 	client := &http.Client{}
-
-	fmt.Println(request)
-
 	return client.Do(request)
 }
 
+// using gorilla/shcema
 func (c QuickpayClient) ConverToURLValues(data interface{}) (url.Values, error) {
 	encoder := schema.NewEncoder()
 	values := url.Values{}
@@ -112,10 +109,11 @@ func (c QuickpayClient) ConverToURLValues(data interface{}) (url.Values, error) 
 }
 
 func (c QuickpayClient) EncodeBody(data interface{}) (io.Reader, error) {
-	bytes, err := json.Marshal(data)
+	values, err := c.ConverToURLValues(data)
 	if err != nil {
 		return nil, err
 	}
 
-	return strings.NewReader(string(bytes)), nil
+	fmt.Println(values.Encode())
+	return strings.NewReader(values.Encode()), nil
 }

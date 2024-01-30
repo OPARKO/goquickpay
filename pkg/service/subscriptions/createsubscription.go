@@ -9,18 +9,18 @@ import (
 )
 
 type CreateForm struct {
-	Variables       map[string]string   `json:"variables,omitempty"`
-	BrandingID      int64               `json:"branding_id,omitempty"`
-	InvoiceAddress  quickpay.Address    `json:"invoice_address,omitempty"`
-	ShippingAddress quickpay.Address    `json:"shipping_address,omitempty"`
-	ShopSystem      quickpay.ShopSystem `json:"shopsystem,omitempty"`
-	OrderID         string              `json:"order_id" binding:"required,len=4:20"`
-	Currency        string              `json:"currency" binding:"required"`
-	Description     string              `json:"description" binding:"required"`
-	TextOnStatement string              `json:"text_on_statement,omitempty"`
-	ThreeDSV2       quickpay.ThreedsV2  `json:"threeds_v2,omitempty"`
-	GroupIDs        []int64             `json:"group_ids,omitempty"`
-	Unscheduled     bool                `json:"unscheduled,omitempty"`
+	Variables       map[string]string   `schema:"variables,omitempty"`
+	BrandingID      int64               `schema:"branding_id,omitempty"`
+	InvoiceAddress  quickpay.Address    `schema:"invoice_address,omitempty"`
+	ShippingAddress quickpay.Address    `schema:"shipping_address,omitempty"`
+	ShopSystem      quickpay.ShopSystem `schema:"shopsystem,omitempty"`
+	OrderID         string              `schema:"order_id" binding:"required,len=4:20"`
+	Currency        string              `schema:"currency" binding:"required"`
+	Description     string              `schema:"description" binding:"required"`
+	TextOnStatement string              `schema:"text_on_statement,omitempty"`
+	ThreeDSV2       quickpay.ThreedsV2  `schema:"threeds_v2,omitempty"`
+	GroupIDs        []int               `schema:"group_ids,omitempty"`
+	Unscheduled     bool                `schema:"unscheduled,omitempty"`
 }
 
 func (s SubscriptionService) CreateSubscription(form CreateForm) (*quickpay.Subscription, error) {
