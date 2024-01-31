@@ -18,9 +18,9 @@ type Payment struct {
 	Link            *PaymentLink `json:"link"`
 	ShippingAddress *Address     `json:"shipping_address"`
 	InvoiceAddress  *Address     `json:"invoice_address"`
-	Basket          []Basket     `json:"basket"`
+	Basket          []*Basket    `json:"basket"`
 	Shipping        *Shipping    `json:"shipping"`
-	Operations      []Operation  `json:"operations"`
+	Operations      []*Operation `json:"operations"`
 	TestMode        bool         `json:"test_mode"`
 	Acquirer        *string      `json:"acquirer"`
 	Facilitator     *string      `json:"facilitator"`
